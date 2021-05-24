@@ -72,14 +72,6 @@ services:
       TZ: Asia/Bangkok
     volumes:
       - './db/cfg:/bitnami'
-      minio:
-        image: bitnami/minio:latest
-        environment:
-          MINIO_ACCESS_KEY: 'root'
-          MINIO_SECRET_KEY: '12345678'
-          MINIO_SERVER_HOST: 'minio'
-        ports:
-          - '9000:9000'
   rabbitmq:
     image: bitnami/rabbitmq:3.8
     volumes:
@@ -90,4 +82,3 @@ services:
       TZ: Asia/Bangkok
       RABBITMQ_USERNAME: root
       RABBITMQ_PASSWORD: FluentSearchRabbitMQ
-    
