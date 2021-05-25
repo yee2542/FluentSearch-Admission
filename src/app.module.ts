@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ConfigDatabaseService } from './config/config.database.service';
 import { ConfigModule } from './config/config.module';
 import { TaskModule } from './task/task.module';
+import { WatchdogModule } from './watchdog/watchdog.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TaskModule } from './task/task.module';
       useClass: ConfigDatabaseService,
     }),
     TaskModule,
+    WatchdogModule,
   ],
   controllers: [AppController],
   providers: [AppService],
