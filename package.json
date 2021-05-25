@@ -31,7 +31,7 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "cookie-parser": "^1.4.5",
-    "fluentsearch-types": "^0.8.7",
+    "fluentsearch-types": "^0.9.1",
     "mongoose": "^5.12.11",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

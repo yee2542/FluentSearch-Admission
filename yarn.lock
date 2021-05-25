@@ -2721,10 +2721,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.1.1.tgz#c4b489e80096d9df1dfc97c79871aea7c617c469"
   integrity sha512-zAoAQiudy+r5SvnSw3KJy5os/oRJYHzrzja/tBDqrZtNhUw8bt6y8OBzMWcjWr+8liV8Eb6yOhw8WZ7VFZ5ZzA==
 
-fluentsearch-types@^0.8.7:
-  version "0.8.7"
-  resolved "https://registry.yarnpkg.com/fluentsearch-types/-/fluentsearch-types-0.8.7.tgz#9207786cde16f666099682fdaded15f527296b20"
-  integrity sha512-ZYnEsVpUlZn4OrHMNkfA8VvrjViu3m2hADLJVZIOzF0YpfTiO8kdtNWY+yzTdjXprzjQR8aVTiSZ42LUvZ4jVA==
+fluentsearch-types@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/fluentsearch-types/-/fluentsearch-types-0.9.1.tgz#28401ec6fb9a6fa223dc923e4f73d2de305492e0"
+  integrity sha512-SGZmz2sW1W8p8FS/354R3hCvwz3B5pUkOK9B8Q8dxt3hqKqr4VTV/AmkFk5ESNt8/x3i0Ih1pCMjcTF/SEd1Ww==
   dependencies:
     mongoose "^5.12.10"
 
