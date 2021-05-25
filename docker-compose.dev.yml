@@ -19,6 +19,9 @@ services:
       SESSION_EXPIRES: 86400000
       STORAGE_ENDPOINT: storage.fluentsearch.ml
       PORT: 3000
+      RABBITMQ_ENDPOINT: 'rabbitmq'
+      RABBITMQ_USERNAME: 'root'
+      RABBITMQ_PASSWORD: 'FluentSearchRabbitMQ'
     build:
       context: ./
       dockerfile: Dockerfile
