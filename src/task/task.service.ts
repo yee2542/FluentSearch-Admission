@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { TaskDocument, TaskDTO, TASKS_SCHEMA_NAME } from 'fluentsearch-types';
+import {
+  TaskDocument,
+  TaskDTO,
+  TaskStateEnum,
+  TASKS_SCHEMA_NAME,
+} from 'fluentsearch-types';
 import { Model } from 'mongoose';
 
 @Injectable()
@@ -10,7 +15,7 @@ export class TaskService {
     private readonly taskMdel: Model<TaskDocument>,
   ) {}
 
-  async createTask(task: TaskDTO) {
-    return this.taskMdel.create(task);
+  async queueTask(task: TaskDTO) {
+    return this.taskMdel.create({ ...task, state: TaskStateEnum.wait });
   }
 }

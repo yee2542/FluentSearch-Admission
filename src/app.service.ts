@@ -1,10 +1,14 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import amqplib from 'amqplib';
 import { ConfigService } from './config/config.service';
 import { ADMISSION_QUEUE } from 'fluentsearch-types';
+import { TaskService } from './task/task.service';
 @Injectable()
 export class AppService implements OnModuleInit {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly taskService: TaskService,
+  ) {}
 
   async onModuleInit() {
     const config = this.configService.get().rabbitmq;
@@ -12,12 +16,16 @@ export class AppService implements OnModuleInit {
     const mq = await amqplib.connect(connectionString);
     const channel = await mq.createChannel();
 
-    channel.consume(ADMISSION_QUEUE, (msg) => {
+    channel.consume(ADMISSION_QUEUE, async (msg) => {
       const payload = JSON.parse(msg?.content.toString() || '');
       console.log(payload);
+      try {
+        await this.taskService.queueTask(payload);
+      } catch (error) {
+        Logger.error(error);
+      }
 
-      // FIXME: ack needed
-      // msg && channel.ack(msg);
+      msg && channel.ack(msg);
     });
   }
 }
