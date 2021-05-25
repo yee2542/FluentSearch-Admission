@@ -16,7 +16,8 @@ export class AppService implements OnModuleInit {
       const payload = JSON.parse(msg?.content.toString() || '');
       console.log(payload);
 
-      msg && channel.ack(msg);
+      // FIXME: ack needed
+      // msg && channel.ack(msg);
     });
   }
 }
