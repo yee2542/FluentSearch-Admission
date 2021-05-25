@@ -4,13 +4,12 @@ import taskSchema, {
   TASKS_SCHEMA_NAME,
 } from 'fluentsearch-types/dist/entity/task.entity';
 import { TaskService } from './task.service';
-
+const TaskInstance = MongooseModule.forFeature([
+  { name: TASKS_SCHEMA_NAME, schema: taskSchema },
+]);
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: TASKS_SCHEMA_NAME, schema: taskSchema },
-    ]),
-  ],
+  imports: [TaskInstance],
   providers: [TaskService],
+  exports: [TaskService, TaskInstance],
 })
 export class TaskModule {}
