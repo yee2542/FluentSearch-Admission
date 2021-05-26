@@ -41,6 +41,7 @@ export class QuotaService {
       return;
     }
     userQuota.available += 1;
+    await userQuota.save();
     return;
   }
 }
