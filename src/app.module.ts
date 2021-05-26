@@ -6,6 +6,7 @@ import { ConfigDatabaseService } from './config/config.database.service';
 import { ConfigModule } from './config/config.module';
 import { TaskModule } from './task/task.module';
 import { WatchdogModule } from './watchdog/watchdog.module';
+import { QuotaModule } from './quota/quota.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { WatchdogModule } from './watchdog/watchdog.module';
     }),
     TaskModule,
     WatchdogModule,
+    QuotaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
