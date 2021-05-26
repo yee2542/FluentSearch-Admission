@@ -1,7 +1,8 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { TaskStateEnum } from 'fluentsearch-types';
+import { ModelEnum, TaskStateEnum } from 'fluentsearch-types';
 
 registerEnumType(TaskStateEnum, { name: 'TaskStateEnum' });
+registerEnumType(ModelEnum, { name: 'ModelEnum' });
 
 @ObjectType()
 export class TaskStatus {
@@ -16,4 +17,10 @@ export class TaskStatus {
 
   @Field(() => Number)
   finish: number;
+
+  @Field(() => [ModelEnum])
+  models: ModelEnum[];
+
+  @Field(() => String)
+  createAt: Date;
 }
