@@ -3,13 +3,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import taskSchema, {
   TASKS_SCHEMA_NAME,
 } from 'fluentsearch-types/dist/entity/task.entity';
+import { TaskResolver } from './task.resolver';
 import { TaskService } from './task.service';
 const TaskInstance = MongooseModule.forFeature([
   { name: TASKS_SCHEMA_NAME, schema: taskSchema },
 ]);
 @Module({
   imports: [TaskInstance],
-  providers: [TaskService],
+  providers: [TaskService, TaskResolver],
   exports: [TaskService, TaskInstance],
 })
 export class TaskModule {}
