@@ -16,14 +16,26 @@ type AppModel {
   status: Int!
 }
 
+enum ModelEnum {
+  basic_fashion
+  classification_21k
+  detection_600
+  faces_emo
+  ilsvrc_googlenet
+  places
+  vgg16
+}
+
 type Query {
   GetUserTasks(userId: String!): UserTasksDTO!
   ServerStatus: AppModel!
 }
 
 type TaskStatus {
+  createAt: String!
   excute: Float!
   finish: Float!
+  models: [ModelEnum!]!
   name: String!
   wait: Float!
 }
