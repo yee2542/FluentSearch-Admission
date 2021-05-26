@@ -1,7 +1,7 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import amqplib from 'amqplib';
 import { ConfigService } from './config/config.service';
-import { ADMISSION_QUEUE } from 'fluentsearch-types';
+import { ACK_TASK_QUEUE, ADMISSION_QUEUE, TaskDTO } from 'fluentsearch-types';
 import { TaskService } from './task/task.service';
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -16,15 +16,28 @@ export class AppService implements OnModuleInit {
     const mq = await amqplib.connect(connectionString);
     const channel = await mq.createChannel();
 
+    // get from storage service
     channel.consume(ADMISSION_QUEUE, async (msg) => {
-      const payload = JSON.parse(msg?.content.toString() || '');
-      console.log(payload);
       try {
+        const payload = JSON.parse(msg?.content.toString() || '');
+        Logger.verbose(payload, 'ADMISSION_QUEUE');
         await this.taskService.queueTask(payload);
       } catch (error) {
         Logger.error(error);
       }
 
+      msg && channel.ack(msg);
+    });
+
+    // get ack from insight/video insight service
+    channel.consume(ACK_TASK_QUEUE, async (msg) => {
+      try {
+        const payload = JSON.parse(msg?.content.toString() || '') as TaskDTO;
+        await this.taskService.setAckTask(payload._id);
+        Logger.verbose(payload, 'ACK_QUEUE');
+      } catch (error) {
+        Logger.error(error);
+      }
       msg && channel.ack(msg);
     });
   }
