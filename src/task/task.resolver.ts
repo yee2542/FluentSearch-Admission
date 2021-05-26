@@ -15,7 +15,7 @@ export class TaskResolver {
     const quota = (await this.quotaService.getUserQuota(userId))?.available;
     const taskStatus = await this.taskService.getUserTaskStatus(userId);
     return {
-      tasks: [taskStatus],
+      tasks: taskStatus,
       quota: quota || -1,
     };
   }
