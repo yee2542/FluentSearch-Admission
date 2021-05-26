@@ -24,6 +24,7 @@ type Query {
 type TaskOverviewDTO {
   excute: Float!
   finish: Float!
+  quota: Float!
   wait: Float!
 }
 
