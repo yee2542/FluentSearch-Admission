@@ -21,6 +21,12 @@ type Query {
   ServerStatus: AppModel!
 }
 
+type TaskOverviewDTO {
+  excute: Float!
+  finish: Float!
+  wait: Float!
+}
+
 enum TaskStateEnum {
   error
   excute
@@ -35,5 +41,6 @@ type TaskStatus {
 }
 
 type UserTasksDTO {
+  overview: TaskOverviewDTO!
   tasks: [TaskStatus!]!
 }
