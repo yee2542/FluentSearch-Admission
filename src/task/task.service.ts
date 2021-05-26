@@ -41,6 +41,14 @@ export class TaskService {
     return task.save();
   }
 
+  async setAckTask(taskId: string) {
+    const task = await this.taskMdel.findById(taskId);
+    if (!task) throw Error('Task not existing');
+    task.state = TaskStateEnum.finish;
+    task.updateAt = new Date();
+    return task.save();
+  }
+
   // async getReadyToSendInsight() {
   //   return this.taskMdel.aggregate([
   //     {
