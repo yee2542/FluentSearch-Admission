@@ -1,13 +1,15 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import amqplib from 'amqplib';
-import { ConfigService } from './config/config.service';
 import { ACK_TASK_QUEUE, ADMISSION_QUEUE, TaskDTO } from 'fluentsearch-types';
+import { ConfigService } from './config/config.service';
+import { QuotaService } from './quota/quota.service';
 import { TaskService } from './task/task.service';
 @Injectable()
 export class AppService implements OnModuleInit {
   constructor(
     private readonly configService: ConfigService,
     private readonly taskService: TaskService,
+    private readonly quotaService: QuotaService,
   ) {}
 
   async onModuleInit() {
@@ -34,6 +36,7 @@ export class AppService implements OnModuleInit {
       try {
         const payload = JSON.parse(msg?.content.toString() || '') as TaskDTO;
         await this.taskService.setAckTask(payload._id);
+        await this.quotaService.upQuota(payload.owner);
         Logger.verbose(payload, 'ACK_QUEUE');
       } catch (error) {
         Logger.error(error);
