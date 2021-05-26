@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {
-  QUOTAS_SCHEMA_NAME,
+  MODEL_AVAILABLE_NAME,
   TaskDocument,
   TaskDTO,
   TaskStateEnum,
   TASKS_SCHEMA_NAME,
 } from 'fluentsearch-types';
 import { Model } from 'mongoose';
+import { TaskStatus } from './dto/task-status.dto';
 
 export const LIMIT_WATCH_DOG_TASK = 10;
 
@@ -47,5 +48,39 @@ export class TaskService {
     task.state = TaskStateEnum.finish;
     task.updateAt = new Date();
     return task.save();
+  }
+
+  async getUserTaskStatus(userId: string): Promise<TaskStatus> {
+    const [wait, excute, finish] = await Promise.all([
+      this.taskMdel
+        .find({
+          owner: userId,
+          state: TaskStateEnum.wait,
+        })
+        .count(),
+      this.taskMdel
+        .find({
+          owner: userId,
+          state: TaskStateEnum.excute,
+        })
+        .count(),
+      this.taskMdel
+        .find({
+          owner: userId,
+          state: TaskStateEnum.finish,
+        })
+        .count(),
+    ]);
+
+    const recentTask: TaskStatus = {
+      name: 'recent',
+      wait,
+      excute,
+      finish,
+      models: MODEL_AVAILABLE_NAME,
+      createAt: new Date(),
+    };
+
+    return recentTask;
   }
 }
