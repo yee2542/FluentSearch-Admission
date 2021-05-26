@@ -9,7 +9,6 @@ import { WatchdogModule } from './watchdog/watchdog.module';
 import { QuotaModule } from './quota/quota.module';
 import { GraphQLFederationModule } from '@nestjs/graphql';
 import { ConfigService } from './config/config.service';
-import { AppResolver } from './app.resolver';
 
 @Module({
   imports: [
@@ -51,6 +50,6 @@ import { AppResolver } from './app.resolver';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, AppResolver],
+  providers: [AppService],
 })
 export class AppModule {}
