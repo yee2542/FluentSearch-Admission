@@ -1,0 +1,39 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @extends on INTERFACE | OBJECT
+
+directive @external on FIELD_DEFINITION | OBJECT
+
+directive @key(fields: String!) on INTERFACE | OBJECT
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+type AppModel {
+  status: Int!
+}
+
+type Query {
+  GetUserTasks: UserTasksDTO!
+  ServerStatus: AppModel!
+}
+
+enum TaskStateEnum {
+  error
+  excute
+  finish
+  wait
+}
+
+type TaskStatus {
+  n: Float!
+  name: String!
+  type: TaskStateEnum!
+}
+
+type UserTasksDTO {
+  tasks: [TaskStatus!]!
+}
