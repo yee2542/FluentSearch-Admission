@@ -48,36 +48,4 @@ export class TaskService {
     task.updateAt = new Date();
     return task.save();
   }
-
-  // async getReadyToSendInsight() {
-  //   return this.taskMdel.aggregate([
-  //     {
-  //       $match: {
-  //         type: TaskStateEnum.wait,
-  //       },
-  //     },
-  //     {
-  //       $lookup: {
-  //         from: QUOTAS_SCHEMA_NAME,
-  //         localField: 'owner',
-  //         foreignField: 'owner',
-  //         as: 'quota',
-  //       },
-  //     },
-  //     {
-  //       $match: {
-  //         available: {
-  //           $gte: 0,
-  //         },
-  //       },
-  //     },
-  //     {
-  //       $sort: {
-  //         updateAt: -1,
-  //       },
-  //     },
-  //     { $limit: LIMIT_WATCH_DOG_TASK },
-  //   ]);
-  //   // .allowDiskUse(true);
-  // }
 }
