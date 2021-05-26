@@ -8,9 +8,12 @@ export class TaskStatus {
   @Field()
   name: string;
 
-  @Field(() => TaskStateEnum)
-  type: TaskStateEnum;
+  @Field(() => Number)
+  wait: number;
 
   @Field(() => Number)
-  n: number;
+  excute: number;
+
+  @Field(() => Number)
+  finish: number;
 }
