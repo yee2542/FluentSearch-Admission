@@ -17,31 +17,18 @@ type AppModel {
 }
 
 type Query {
-  GetUserTasks: UserTasksDTO!
+  GetUserTasks(userId: String!): UserTasksDTO!
   ServerStatus: AppModel!
 }
 
-type TaskOverviewDTO {
+type TaskStatus {
   excute: Float!
   finish: Float!
-  quota: Float!
+  name: String!
   wait: Float!
 }
 
-enum TaskStateEnum {
-  error
-  excute
-  finish
-  wait
-}
-
-type TaskStatus {
-  n: Float!
-  name: String!
-  type: TaskStateEnum!
-}
-
 type UserTasksDTO {
-  overview: TaskOverviewDTO!
+  quota: Float!
   tasks: [TaskStatus!]!
 }
