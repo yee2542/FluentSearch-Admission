@@ -7,6 +7,9 @@ import { ConfigModule } from './config/config.module';
 import { TaskModule } from './task/task.module';
 import { WatchdogModule } from './watchdog/watchdog.module';
 import { QuotaModule } from './quota/quota.module';
+import { GraphQLFederationModule } from '@nestjs/graphql';
+import { ConfigService } from './config/config.service';
+import { AppResolver } from './app.resolver';
 
 @Module({
   imports: [
@@ -18,8 +21,36 @@ import { QuotaModule } from './quota/quota.module';
     TaskModule,
     WatchdogModule,
     QuotaModule,
+    GraphQLFederationModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        return {
+          path: '/graphql',
+          introspection: true,
+          playground: {
+            settings: {
+              'request.credentials': 'include',
+            },
+          },
+          cors: {
+            origin: configService.get().origin,
+            credentials: true,
+          },
+          installSubscriptionHandlers: false,
+          autoSchemaFile: 'schema.gql',
+          sortSchema: true,
+          context: ({ req, res, payload, connection }) => ({
+            req,
+            res,
+            payload,
+            connection,
+          }),
+        };
+      },
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppResolver],
 })
 export class AppModule {}
