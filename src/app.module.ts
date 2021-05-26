@@ -7,7 +7,6 @@ import { ConfigModule } from './config/config.module';
 import { TaskModule } from './task/task.module';
 import { WatchdogModule } from './watchdog/watchdog.module';
 import { QuotaModule } from './quota/quota.module';
-import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -19,7 +18,6 @@ import { FileModule } from './file/file.module';
     TaskModule,
     WatchdogModule,
     QuotaModule,
-    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
