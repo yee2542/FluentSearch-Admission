@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { QuotaDocument, QUOTAS_SCHEMA_NAME } from 'fluentsearch-types';
 import { Model } from 'mongoose';
 
-export const DEFAULT_QUOTA = 20;
+export const DEFAULT_QUOTA = 5;
 @Injectable()
 export class QuotaService {
   constructor(
